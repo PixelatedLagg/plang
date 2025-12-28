@@ -1,0 +1,60 @@
+#item-list {
+    border: 1px solid black;
+    margin-right: 8px;
+    overflow: scroll;
+}
+
+.interact-panel {
+    border: 1px solid black;
+}
+
+.create-item {
+  font-size: larger;
+  width: max-content;
+  margin: 4px;
+}
+
+.create-item:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body, html {
+  height: 100%;
+}
+
+.create-menu {
+    margin: auto;
+    width: 50%;
+    border: 3px solid black;
+    padding: 8px;
+    display: block;
+}
+
+/* tablet breakpoint */
+@media (min-width:768px) {
+    .create-menu {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+* {
+  font-family: "Noto Sans SC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+input {
+    margin-bottom: 8px;
+}
+
+.record, .test {
+    margin-bottom: 8px;
+}

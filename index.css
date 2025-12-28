@@ -1,0 +1,41 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body, html {
+  height: 100%;
+}
+
+.main-menu {
+  margin: auto;
+  width: 30%;
+}
+
+.inner-content {
+  border: 3px solid black;
+  padding: 10px;
+}
+
+.main-menu button {
+  width: 100%;
+}
+
+.main-menu button + button {
+  margin-top: 8px;
+}
+
+* {
+  font-family: "Noto Sans SC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
+}
+
+.logo {
+  font-family: "Noto Sans SC", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: larger;
+}

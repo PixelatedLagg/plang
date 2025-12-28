@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>plang</title>
+        <meta charset="utf-8">
+        <meta name="phone" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="favicon.ico">
+        <noscript><meta http-equiv="refresh" content="0; url=error.html"/></noscript>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <input type="file" id="file-picker" accept=".plang" hidden>
+        <div class="main-menu">
+            <div class="logo">p l 啊 n g</div>
+            <div class="inner-content">
+                <button id="open-file">Open File</button>
+                <button id="new-file">New File</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.getElementById("file-picker").addEventListener('change', function () {
+            let reader = new FileReader();
+            reader.onload = () => {
+                sessionStorage.setItem("plang-file", reader.result);
+                location.replace("./main.html");
+            }
+            let file = this.files[0];
+            if (!file.name.includes(".plang")) {
+                alert("Invalid file!");
+                return;
+            }
+            reader.readAsText(file);
+        });
+        document.getElementById("open-file").onclick = () => {
+            document.getElementById("file-picker").click();
+        };
+        document.getElementById("new-file").onclick = () => {
+            location.replace("./create.html");
+        }
+    </script>
+</html>

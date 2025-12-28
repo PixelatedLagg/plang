@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>plang</title>
+        <meta charset="utf-8">
+        <meta name="phone" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="favicon.ico">
+        <noscript><meta http-equiv="refresh" content="0; url=error.html"/></noscript>
+        <script src="https://unpkg.com/recorder-core@1.3.24040900/recorder.mp3.min.js"></script>
+        <script src="pinyinToneConverter.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="create.css">
+    </head>
+    <body>
+        <div id="player" hidden></div>
+        <div class="create-menu">
+            <div id="item-list">
+            </div>
+            <div class="interact-menu">
+                <form>
+                    <label for="form-hanzi">Hanzi</label>
+                    <input type="text" id="form-hanzi" name="form-hanzi" placeholder="你好"><br>
+                    <label for="form-pinyin">Pinyin</label>
+                    <input type="text" id="form-pinyin" name="form-pinyin" placeholder="ni3hao3"><br>
+                    <label for="form-meaning">Meaning</label>
+                    <input type="text" id="form-meaning" name="form-meaning" placeholder="hello"><br>
+                </form>
+                <div class="record">
+                    <label>Record pronounciation</label>
+                    <button id="record-start">Start</button>
+                    <button id="record-stop">Stop</button>
+                    <Button id="record-play">Play</Button>
+                </div>
+                <button id="form-new">New term</button>
+                <button id="form-edit">Edit term</button>
+                <button id="form-delete">Delete term</button>
+                <button id="form-cancel">Cancel</button>
+                <hr style="border-top: 1px solid black;">
+                <form>
+                    <label for="form-use-audio">Use audio</label>
+                    <input type="checkbox" id="form-use-audio" name="form-use-audio" checked><br>
+                </form>
+                <hr style="border-top: 1px solid black;">
+                <form>
+                    <label for="form-test-value">Test value</label>
+                    <input type="text" id="form-test-value" name="form-test-value" placeholder="xxxx-xxxx"><br>
+                </form>
+                <div class="test">
+                    <label>Or take the test (approximately 10 minutes)</label>
+                    <button id="open-test">Open Test</button>
+                </div>
+                <button id="finish">Finish</button>
+            </div>
+        </div>
+    </body>
+    <script src="create.js"></script>
+</html>
