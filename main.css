@@ -7,9 +7,11 @@
 }
 
 #item-list {
-    border: 1px solid black;
-    flex: 20%;
+    border: 3px solid black;
+    flex: 30%;
     padding: 8px;
+    overflow: scroll;
+    text-wrap-mode: nowrap;
 }
 
 #item-list p span {
@@ -22,9 +24,16 @@
     background-color: transparent;
 }
 
+#item-list p {
+    margin: 0;
+}
+
+#item-list p + p {
+    margin-top: 16px;
+}
+
 .interact-panel {
-    flex: 80%;
-    border: 1px solid black;
+    flex: 70%;
 }
 
 body, html {
@@ -43,4 +52,51 @@ body {
   font-optical-sizing: auto;
   font-weight: normal;
   font-style: normal;
+}
+
+#time-message {
+    text-align: center;
+}
+
+b {
+    font-weight: bold;
+}
+
+#main-area {
+    display: flex;
+    flex-direction: row;
+}
+
+.canvas-label svg {
+    height: 200px;
+    width: 200px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.canvas-label {
+    flex: 1;
+}
+
+.canvas-label div {
+    display: block;
+    margin: auto;
+    width: min-content;
+}
+
+.canvas-label label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.menu {
+    height: min-content;
+    padding: 8px;
+    border: 3px solid black;
+}
+
+#audio-hanzi {
+    padding: 8px;
+    margin-top: 16px;
+    border: 3px solid black;
 }

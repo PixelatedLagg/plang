@@ -197,22 +197,25 @@ formDelete.onclick = () => {
     }
 
     termList.removeChild(termList.children[currentIndex]);
-    for (var i = 0; i < termList.children.length; i++) {
-        let previousIndex = termList.children[i].getAttribute("data-index");
-        termList.children[i].setAttribute("data-index", i);
 
-        //find and change sister audio index
-        player.children.forEach((playerChild, playerChildIndex) => {
-            if (playerChild.getAttribute("data-index") == previousIndex) {
-                playerChild.setAttribute("data-index", i);
-            }
+    var i = 0;
+    for (var term of termList.children) {
+        var oldIndex = term.getAttribute("data-index");
 
-            //remove orphaned audios
-            if (playerChild.getAttribute("data-index") >= termList.children.length) {
-                player.removeChild(playerChild);
+        //ensure all terms and audios have proper data-index!
+        if (oldIndex != i) {
+            console.log(oldIndex + " -> " + i);
+            term.setAttribute("data-index", i);
+            for (var child of player.children) {
+                if (child.getAttribute("data-index") == oldIndex) {
+                    child.setAttribute("data-index", i);
+                }
             }
-        });
+        }
+        i++;
     }
+
+    console.log("delete: " + currentIndex);
 }
 
 formCancel.onclick = () => {
@@ -267,6 +270,7 @@ let useAudio = document.getElementById("form-use-audio");
 let openTest = document.getElementById("open-test");
 let finish = document.getElementById("finish");
 let testValue = document.getElementById("form-test-value");
+let massImport = document.getElementById("mass-import");
 
 openTest.onclick = () => {
     window.open("./test.html", '_blank').focus();
@@ -276,6 +280,12 @@ function generateWithBase64() {
     let blobs = new Map();
     let strings = new Map();
     let promises = [];
+
+    //skip all of this if no audio exists!
+    if (player.children.length === 0) {
+        generateFile(strings);
+        return;
+    }
 
     //read blobs
     for (let child of player.children) {
@@ -323,7 +333,8 @@ finish.onclick = async function() {
 function generateFile(blobs) {
     const result = {
         settings: {
-            useAudio: useAudio.checked
+            useAudio: useAudio.checked,
+            testValue: testValue.value
         },
         terms: []
     }
@@ -369,4 +380,62 @@ function save(filename, data) {
         elem.click();        
         document.body.removeChild(elem);
     }
+}
+
+function createNewTerm(hanzi, pinyin, meaning) {
+    let newTerm = document.createElement("p");
+    newTerm.innerText = hanzi + "; " + pinyin + "; " + meaning;
+    newTerm.className = "create-item";
+    newTerm.setAttribute("data-hanzi", hanzi);
+    newTerm.setAttribute("data-pinyin", pinyin);
+    newTerm.setAttribute("data-meaning", meaning);
+    newTerm.setAttribute("data-index", termList.children.length);
+
+    newTerm.onclick = () => {
+        if (termList.children.length > currentIndex) {
+            //last one
+            termList.children[currentIndex].style.color = "black";
+        }
+
+        currentIndex = newTerm.getAttribute("data-index");
+        formHanzi.value = newTerm.getAttribute("data-hanzi");
+        formPinyin.value = newTerm.getAttribute("data-pinyin");
+        formMeaning.value = newTerm.getAttribute("data-meaning");
+        formNew.disabled = true;
+        formEdit.disabled = false;
+        formDelete.disabled = false;
+        formCancel.disabled = false;
+        newTerm.style.color = "red";
+
+        for (var child of player.children) {
+            if (child.getAttribute("data-index") == currentIndex) {
+                recordPlay.disabled = false;
+            }
+        }
+    }
+
+    termList.append(newTerm);
+}
+
+massImport.onclick = () => {
+    navigator.clipboard.readText().then(r => {
+        for (var line of r.split('\n')) {
+            if (line.length === 0 || !isChinese(line.charAt(0)) || line.charAt(0) === ' ') {
+                //this line is useless, so skip
+                continue;
+            }
+
+            console.log("\"" + line + "\"");
+            var splitSemicolon = line.split('；');
+            let hanzi = splitSemicolon[0].trim();
+
+            var splitColon = splitSemicolon[1].split(':');
+            let pinyin = splitColon[0].trim();
+            let meaning = splitColon[1].trim();
+
+            console.log("hanzi: " + hanzi + " pinyin: " + pinyin + " meaning: " + meaning);
+
+            createNewTerm(hanzi, pinyin, meaning);
+        }
+    });
 }
