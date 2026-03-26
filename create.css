@@ -1,11 +1,9 @@
-#item-list {
+#item-list,
+#sentence-container,
+#edit-sentences-item-list {
     border: 1px solid black;
     margin-right: 8px;
     overflow: scroll;
-}
-
-.interact-panel {
-    border: 1px solid black;
 }
 
 .create-item {
@@ -28,13 +26,32 @@ body, html {
   height: 100%;
 }
 
-.create-menu {
-    margin: auto;
+.create-menu-container {
+    display: block;
     width: 50%;
+    margin-left: 25%;
+    margin-top: 15%;
+}
+
+.create-options {
+    flex-direction: row;
+    display: flex;
+    align-content: flex-start;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.create-options button {
+    color: black;
+    padding: 4px;
+    font-size: 16px;
+}
+
+.create-menu {
     border: 3px solid black;
     padding: 8px;
     display: block;
-    max-height: 50%;
+    max-height: min-content;
 }
 
 /* tablet breakpoint */
@@ -58,4 +75,102 @@ input {
 
 .record, .test {
     margin-bottom: 8px;
+}
+
+
+#edit-phrases-menu,
+#edit-sentences-menu,
+#mass-import-menu {
+    display: none;
+}
+
+/* mass import menu */
+
+#parse-order * {
+    font-size: 16px;
+}
+
+.selected {
+    background-color: white;
+    color: black;
+    font-weight: bolder;
+    border: 3px solid black;
+}
+
+.root-term div {
+    margin-left: 16px;
+}
+
+#phrase-group-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-width: 100%;
+}
+
+#phrase-group-buttons button {
+    max-height: min-content;
+    min-width: max-content;
+}
+
+.child {
+    margin-left: 16px;
+}
+
+/*sentences*/
+
+.sentence {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+#sentence-container {
+    padding: 8px;
+}
+
+.sentence {
+    margin-bottom: 8px;
+}
+
+.selected-particle {
+    background-color: white;
+    border: 2px solid black;
+}
+
+.custom-group-terms {
+    border: 1px solid black;
+}
+
+#custom-group-container {
+    margin-bottom: 8px;
+}
+
+.sentence > div button[data-sentence-type="text"] {
+    background-color: #df939c;
+}
+
+.sentence > div button[data-sentence-type="group"] {
+    background-color: #a49ff3;
+}
+
+.sentence > div button[data-sentence-type="custom-group"] {
+    background-color: #a4e7ab;
+}
+
+.left {
+    float: left;
+    padding: 0;
+    margin-right: 4px;
+}
+
+.left button {
+    aspect-ratio: 1 / 1;
+    height: 26px;
+}
+
+.left + div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 4px;
 }

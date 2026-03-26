@@ -12,49 +12,158 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100..900&display=swap" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="create.css">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
+        <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
     </head>
     <body>
         <div id="player" hidden></div>
-        <div class="create-menu">
-            <div id="item-list">
+        <div id="sentence-player" hidden></div>
+        <div class="create-menu-container">
+            <div class="create-options">
+                <button id="add-terms" disabled>Add Terms</button>
+                <button id="edit-phrases">Edit Phrases</button>
+                <button id="edit-sentences">Edit Sentences</button>
+                <button id="mass-import">Mass Import Terms</button>
             </div>
-            <div class="interact-menu">
-                <form>
-                    <label for="form-hanzi">Hanzi</label>
-                    <input type="text" id="form-hanzi" name="form-hanzi" placeholder="你好"><br>
-                    <label for="form-pinyin">Pinyin</label>
-                    <input type="text" id="form-pinyin" name="form-pinyin" placeholder="ni3hao3"><br>
-                    <label for="form-meaning">Meaning</label>
-                    <input type="text" id="form-meaning" name="form-meaning" placeholder="hello"><br>
-                </form>
-                <div class="record">
-                    <label>Record pronounciation</label>
-                    <button id="record-start">Start</button>
-                    <button id="record-stop">Stop</button>
-                    <Button id="record-play">Play</Button>
+            <div id="add-terms-menu" class="create-menu">
+                <div id="item-list">
                 </div>
-                <button id="form-new">New term</button>
-                <button id="form-edit">Edit term</button>
-                <button id="form-delete">Delete term</button>
-                <button id="form-cancel">Cancel</button>
-                <hr style="border-top: 1px solid black;">
-                <form>
-                    <label for="form-use-audio">Use audio</label>
-                    <input type="checkbox" id="form-use-audio" name="form-use-audio" checked><br>
-                </form>
-                <hr style="border-top: 1px solid black;">
-                <form>
-                    <label for="form-test-value">Test value</label>
-                    <input type="text" id="form-test-value" name="form-test-value" placeholder="xxxx-xxxx"><br>
-                </form>
-                <div class="test">
-                    <label>Or take the test (approximately 10 minutes)</label>
-                    <button id="open-test">Open Test</button>
+                <div id="interact-menu">
+                    <form>
+                        <label for="form-hanzi">Hanzi</label>
+                        <input type="text" id="form-hanzi" name="form-hanzi" placeholder="你好"><br>
+                        <label for="form-pinyin">Pinyin</label>
+                        <input type="text" id="form-pinyin" name="form-pinyin" placeholder="ni3hao3"><br>
+                        <label for="form-meaning">Meaning</label>
+                        <input type="text" id="form-meaning" name="form-meaning" placeholder="hello"><br>
+                    </form>
+                    <div class="record">
+                        <label>Record pronounciation</label>
+                        <button id="record-start">Start</button>
+                        <button id="record-stop">Stop</button>
+                        <Button id="record-play">Play</Button>
+                    </div>
+                    <button id="form-new">New term</button>
+                    <button id="form-edit">Edit term</button>
+                    <button id="form-delete">Delete term</button>
+                    <button id="form-cancel">Cancel</button>
+                    <hr style="border-top: 1px solid black;">
+                    <form>
+                        <label for="form-test-value">Test value (leave blank to fill in later)</label>
+                        <input type="text" id="form-test-value" name="form-test-value" placeholder="xxxx-xxxx"><br>
+                    </form>
+                    <div class="test">
+                        <label>Or take the test (approximately 10 minutes)</label>
+                        <button id="open-test">Open test</button>
+                    </div>
+                    <button id="finish">Finish</button>
                 </div>
-                <button id="finish">Finish</button>
-                <button id="mass-import">Paste Import Terms</button>
+                <div id="phrase-interact-menu" style="display: none;">
+                    <form>
+                        <label for="mark-as-root-term">Mark as root term</label>
+                        <input type="checkbox" id="mark-as-root-term" name="mark-as-root-term" disabled><br>
+                    </form>
+                    <button id="select-children" disabled>Select children</button>
+                    <button id="done-select-children" disabled>Done</button>
+                    <button id="phrase-cancel" disabled>Cancel</button>
+                    <!--<hr style="border-top: 1px solid black;" style="display: none;">-->
+                    <label for="tree-view" style="display: none;">Tree view</label>
+                    <input type="checkbox" id="tree-view" name="tree-view" style="display: none;"><br>
+                    <hr style="border-top: 1px solid black;">
+                    <div id="phrase-group-buttons">
+                        <button data-group-name="noun" style="background-color: #df939c;" onclick="markAsGroup(this);">Mark as noun</button>
+                        <button data-group-name="verb" style="background-color: #a49ff3;" onclick="markAsGroup(this);">Mark as verb</button>
+                        <button data-group-name="noun-verb" style="background-color: #a4e7ab;" onclick="markAsGroup(this);">Mark as noun-verb</button>
+                        <button data-group-name="adjective" style="background-color: #cea0eb;" onclick="markAsGroup(this);">Mark as adjective</button>
+                        <button data-group-name="adverb" style="background-color: #e4ccaa;" onclick="markAsGroup(this);">Mark as adverb</button>
+                    </div>
+                    <button id="clear-marking" style="margin-top: 8px;">Clear marking</button>
+                    <hr style="border-top: 1px solid black;">
+                    <label for="color-picker">Group color</label>
+                    <div id="color-picker-container" style="margin-bottom: 8px;" >
+                        <input name="color-picker" id="color-picker" data-coloris>
+                    </div>
+                    <label for="group-name">Group name</label><br>
+                    <input type="text" id="group-name" name="group-name" placeholder="New group name"><br>
+                    <button id="add-new-group">Add new group</button>
+                    <button id="edit-group">Edit group</button>
+                    <button id="delete-group">Delete group</button>
+                    <button id="cancel-group">Cancel</button>
+                </div>
+            </div>
+            <div id="edit-sentences-menu" class="create-menu">
+                <div id="sentence-container">
+                    <div id="sentences"></div>
+                    <button id="sentence-new">New sentence</button>
+                </div>
+                <div class="interact-menu">
+                    <button id="sentence-delete">Delete sentence</button>
+                    <button id="sentence-cancel">Cancel</button>
+                    <hr style="border-top: 1px solid black;">
+                    <button id="sentence-add-text">Text</button>
+                    <button id="sentence-add-group">Group</button>
+                    <button id="sentence-add-custom-group">Custom group</button>
+                    <hr style="border-top: 1px solid black;">
+                    <div id="sentence-text-menu" style="display: none;">
+                        <form>
+                            <label for="sentence-text-hanzi">Hanzi</label>
+                            <input type="text" id="sentence-text-hanzi" name="sentence-text-hanzi" placeholder="你好"><br>
+                            <label for="sentence-text-pinyin">Pinyin</label>
+                            <input type="text" id="sentence-text-pinyin" name="sentence-text-pinyin" placeholder="ni3hao3"><br>
+                            <label for="sentence-text-meaning">Meaning</label>
+                            <input type="text" id="sentence-text-meaning" name="sentence-text-meaning" placeholder="hello"><br>
+                        </form>
+                        <div class="record">
+                            <label>Record pronounciation</label>
+                            <button id="sentence-start">Start</button>
+                            <button id="sentence-stop">Stop</button>
+                            <Button id="sentence-play">Play</Button>
+                        </div>
+                        <button id="sentence-text-save">Save</button>
+                        <button onclick="deleteFromSentence();">Delete</button>
+                    </div>
+                    <div id="sentence-group-menu" style="display: none;">
+                        <select id="sentence-group-select"></select>
+                        <button id="sentence-group-save">Save</button>
+                        <button onclick="deleteFromSentence();">Delete</button>
+                    </div>
+                    <div id="sentence-custom-group-menu" style="display: none;">
+                        <div id="custom-group-container">
+                            <span>Empty custom group</span>
+                        </div>
+                        <button id="custom-group-add-term">Add term</button>
+                        <button id="custom-group-add-group">Add group</button>
+                        <button id="custom-group-remove">Remove</button>
+                        <hr style="border-top: 1px solid black;">
+                        <button id="custom-group-save">Save</button>
+                        <button onclick="deleteFromSentence();">Delete</button>
+                    </div>
+                </div>
+            </div>
+            <div id="mass-import-menu" class="create-menu">
+                <p>Mass import terms from a vocab list. Edit the text and type order for each line by clicking. Below is an example line from a vocab list and its configuration.</p>
+                <p>
+                    <i style="background-color: #df939c;">这是汉字</i>; <i style="background-color: #a49ff3;">zhe shi pinyin</i>; <i style="background-color: #a4e7ab;">this is the meaning</i>
+                </p>
+                <div id="parse-order">
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="">""</button>
+                    <button data-type="hanzi" style="background-color: #df939c;" onclick="changeDataType(this)">Hanzi</button>
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="; ">"; "</button>
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="">""</button>
+                    <button data-type="pinyin" style="background-color: #a49ff3;" onclick="changeDataType(this)">Pinyin</button>
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="; ">"; "</button>
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="">""</button>
+                    <button data-type="meaning" style="background-color: #a4e7ab;" onclick="changeDataType(this)">Meaning</button>
+                    <button id="parse-order-text" onclick="changeText(this)" data-value="">""</button>
+                </div>
+                <p>When done, copy the entire vocab list and click the button.</p>
+                <div class="parse-order-controls">
+                    <button id="import-button">Import</button>
+                </div>
             </div>
         </div>
     </body>
     <script src="create.js"></script>
+    <script src="sentenceCreate.js"></script>
 </html>

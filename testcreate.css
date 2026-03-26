@@ -1,0 +1,54 @@
+#main {
+    display: flex;
+    gap: 8px;
+    margin: auto;
+    width: 70%;
+    flex-wrap: wrap;
+    border: 3px solid black;
+    padding: 8px;
+}
+#main > div {
+    flex-grow: 1;
+    flex-basis: 25%;
+    max-width: calc(100% / 3);
+    padding: 8px;
+    border: 1px solid black;
+}
+#main p {
+    margin-top: 0;
+}
+#main div label {
+    display: block;
+}
+#main div input {
+    margin-bottom: 16px;
+}
+/*
+.one {
+    background-color: red;
+}
+.two {
+    background-color: green;
+}
+.three {
+    background-color: blue;
+}
+.four {
+    background-color: yellow;
+}
+.five {
+    background-color: purple;
+}*/
+
+.record {
+    min-width: max-content;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+body, html {
+  height: 100%;
+}

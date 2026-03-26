@@ -62,7 +62,7 @@ b {
     font-weight: bold;
 }
 
-#main-area {
+#audio-hanzi {
     display: flex;
     flex-direction: row;
 }
@@ -91,12 +91,27 @@ b {
 
 .menu {
     height: min-content;
-    padding: 8px;
-    border: 3px solid black;
+    display: flex;
+    gap: 16px;
 }
 
-#audio-hanzi {
+.menu > div {
+    padding: 8px;
+    border: 3px solid black;
+    float: left;
+}
+
+#mode-area {
     padding: 8px;
     margin-top: 16px;
     border: 3px solid black;
+}
+
+#bottom-menu {
+    display: block;
+    border: 1px solid black;
+    width: max-content;
+    margin: auto;
+    margin-top: 32px;
+    padding: 8px;
 }

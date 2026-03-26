@@ -26,18 +26,28 @@
                         <select name="mode" id="mode">
                             <option value="audio-hanzi">Audio to Hanzi</option>
                             <option value="audio-pinyin">Audio to Pinyin</option>
-                            <option value="hanzi-pinyin">Hanzi to Pinyin</option>
-                            <option value="hanzi-meaning">Hanzi to Meaning</option>
-                            <option value="meaning-hanzi">Meaning to Hanzi</option>
-                            <option value="meaning-pinyin">Meaning to Pinyin</option>
+                            <option value="audio-meaning">Audio to Meaning</option>
+                            <option value="sentences">Sentences</option>
                         </select>
                         <button id="begin">Begin</button>
                     </div>
+                    <div id="mode-group-select">
+                        <label for="group-mode">Select a group</label>
+                        <select name="group-mode" id="group-mode">
+                        </select>
+                        <button id="begin-group">Begin</button>
+                    </div>
+                    <div id="mode-root-select">
+                        <label for="group-mode">Select a root term</label>
+                        <select name="group-mode" id="group-mode">
+                        </select>
+                        <button id="begin-root">Begin</button>
+                    </div>
                 </div>
-                <div id="audio-hanzi" hidden>
+                <div id="mode-area" hidden>
                     <p id="position-text"></p>
                     <p id="time-message">Hello</p>
-                    <div id="main-area" hidden>
+                    <div id="audio-hanzi" hidden>
                         <div class="canvas-label">
                             <div>
                                 <label for="character">Character Canvas</label>
@@ -62,7 +72,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="challenge-area" hidden>
+                    <div id="audio-hanzi-challenge" hidden>
                         <div class="canvas-label">
                             <div>
                                 <p id="challenge-countdown">time left: 1.01</p>
@@ -75,6 +85,10 @@
                                 </svg>
                             </div>
                         </div>
+                    </div>
+                    <div id="bottom-menu">
+                        <button id="replay-audio">Replay audio</button>
+                        <button id="skip-to-challenge">Skip to challenge</button>
                     </div>
                 </div>
             </div>
